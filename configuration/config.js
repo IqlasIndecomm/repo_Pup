@@ -45,7 +45,7 @@ var eco = {
     port     : 1433
 };
 
-eco.server.replace(EcoName,EcoSystemName);
+eco.server.replace("EcoName",EcoSystemName);
 
 var config = process.env.CAS_ENV;
 
