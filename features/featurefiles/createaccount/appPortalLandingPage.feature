@@ -5,10 +5,7 @@ Feature: Validate Landing Page of the CAS Applicant Portal
        #|text|
        # |anisha|
        # |shetty|
-       Given i execute query with return
-       |Value|
-       |SELECT_BUCOM_PROGRAMS|
-       Given i execute query without return
+       Given i activate programs
        |Value|
        |ACTIVATE_BUCOM_PROGRAMS|
         Given The browser is open
