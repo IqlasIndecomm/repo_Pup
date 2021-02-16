@@ -1,6 +1,6 @@
 const stageBuCom = 'https://bu-com.stg.liaisoncas.com/applicant-ux/#/login';
 const integrationBuCom = 'https://bu-com.int.liaisoncas.com/applicant-ux/#/login';
-const ecoSystemBuCom = 'https://bu-com.applicant-EcoName.litest.io/applicant-ux/#/login';
+const ecosystemBuCom = 'https://bu-com.applicant-EcoName.litest.io/applicant-ux/#/login';
 var CASURLToLoad, EcoURL;
 
 
@@ -19,7 +19,7 @@ function getURL(CAS_ENV, CASName, EcoSystemName) {
             console.log(integrationBuCom)    
         return integrationBuCom;
         break;
-        case "ecoSystemBuCom":
+        case "ecosystemBuCom":
             console.log(EcoURL)    
         return EcoURL;
         break;

@@ -14,7 +14,7 @@ setDefaultTimeout(60 * 1000);
 //var random = Math.floor((Math.random() * 1223) + 1);
 const ScreenshotTester = require('puppeteer-screenshot-tester')
 //const tester = ScreenshotTester()
-
+var mssql = require('mssql');
 var MobileDetect = require('mobile-detect');
 
 
@@ -51,7 +51,8 @@ var url = require('../../../configuration/urls')
 
 var utils = require('../../../utilities/commonUtils');
 
-var db = require('../../../configuration/database')
+var db = require('../../../configuration/database');
+const { deepStrictEqual } = require("assert");
 
 
 
@@ -202,7 +203,32 @@ Then('i print text', async function (table) {
     });
 });
 
- Then('i activate programs', async function (text) {
+ Then('i execute query with return', async function (text) {
+    var query;
+    var value = text.rows();
+    console.log("printing "+value[0][0]);
+    switch(value[0][0]){
+        case "SELECT_BUCOM_PROGRAMS" : query = createaccountdata.SELECT_BUCOM_PROGRAMS;
+                                             break;
+
+    }
+    console.log(query)
+    var result = await db.executeQueryWithReturn(query);
+    console.log('1111printing result' ,result);
+    var userData = result;
+    var newData = JSON.parse(JSON.stringify(userData));
+    console.log('printing all records',newData.recordset);
+    console.log('First program name is',newData.recordset[0].ProgramName);
+    console.log('printing list of programs:')
+    var i = 0;
+     newData.recordset.forEach(function (value) {
+      console.log(newData.recordset[i].ProgramName);
+      i++;
+});
+
+}); 
+
+Then('i execute query without return', async function (text) {
     var query;
     var value = text.rows();
     console.log("printing "+value[0][0]);
@@ -212,5 +238,6 @@ Then('i print text', async function (table) {
 
     }
     console.log(query)
+    await db.executeQueryWithoutReturn(query);
 
 }); 
