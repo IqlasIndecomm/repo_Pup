@@ -30,6 +30,9 @@ var testmobiledevice;
 const TAB_DEVICE = process.env.TAB_DEVICE;
 var testtabdevice;
 
+const CHECK_508 = process.env.CHECK_508 || false;
+var check508
+
 //var navigator;
 /* global.navigator = {
     userAgent: '',
@@ -54,6 +57,10 @@ var testtabdevice;
   //var createAccountData = new createaccountdata();
   
 var url = require('../../../configuration/urls')
+
+const check = require('../../../configuration/508check')
+
+var api = require('../../../api/apitest')
 
 var utils = require('../../../utilities/commonUtils');
 
@@ -108,6 +115,10 @@ Then('SignOut from App Portal', async function () {
 Given('Create Account button is clicked', async function () {
     utils.waitfor(10000)
     await createaccount.clickcreateaccountbutton(page);
+    if(CHECK_508=='true')
+      {
+        await check.generateResults(page, 'CreateAccountPage');
+      }
     //await page.waitForSelector('#cas-content-wrapper > div > div.cas-login-container > div.cas-login-form-container > form > a.cas-login-create-account-link')
     //await page.click('#cas-content-wrapper > div > div.cas-login-container > div.cas-login-form-container > form > a.cas-login-create-account-link')
 });
@@ -218,6 +229,15 @@ Given("UserName and Password is provided", async function () {
     await landingpage.typeusernamepassword(page, 'aashnasahni', 'Test@123');
 });
 
+Then('add custom tile', async function () {
+    console.log('in')
+    var formid = 6621;
+    var apiurl = "/appbuilder/rest/applicationFormSubSections/";
+    var payload = createaccountdata.CREATE_TILE_PAYLOAD;
+    var code = 201;
+    api.addDataAPIPostCall(payload, formid, apiurl, code);
+});
+
 Then('i print text', async function (table) {
     var s = table.rows();
     console.log("text: ");
@@ -274,3 +294,8 @@ Then('Select tile {string}', async function (string) {
  Then('Select quadrant {string}', async function (string) {
     await createaccount.selectQuadrant(page, string)
  });
+
+ 
+
+
+ 

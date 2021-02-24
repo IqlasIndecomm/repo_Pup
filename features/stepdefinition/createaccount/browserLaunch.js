@@ -9,8 +9,7 @@ const { assert, util } = require("chai");
 //const { expect } = require("jasmine");
 var chai = require('chai');
 var expect = chai.expect;
-const { AxePuppeteer } = require('@axe-core/puppeteer');
-const AxeReports = require('axe-reports');
+
 const fs = require('fs')
 setDefaultTimeout(60 * 1000);
 //var random = Math.floor((Math.random() * 1223) + 1);
@@ -31,6 +30,9 @@ var testmobiledevice;
 
 const TAB_DEVICE = process.env.TAB_DEVICE || IPAD_PRO_PREVIOUS_VERSION_USERAGENT;
 var testtabdevice;
+
+const CHECK_508 = process.env.CHECK_508 || false;
+var check508
 
 //var navigator;
 /* global.navigator = {
@@ -58,6 +60,9 @@ var utils = require('../../../utilities/commonUtils');
 
 const useragent = require('../../../testdata/datafiles/useragent')
 
+const check = require('../../../configuration/508check')
+
+
 Before(async function (scenario) {
   //testenv = '${CAS_ENV}';
   console.log(`Scenario: ${JSON.stringify(scenario.pickle.name)}  Started in ${CAS_ENV} environment`);
@@ -65,6 +70,7 @@ Before(async function (scenario) {
   testeco = ECO_NAME;
   testmobiledevice = MOBILE_DEVICE;
   testtabdevice = TAB_DEVICE
+  check508 = CHECK_508
   console.log(testeco);
 });
 
@@ -117,13 +123,11 @@ When('Open the {string} Applicant page {string}', async function (cas, device) {
 
       //508 check
       console.log('508 results')
-      const resultsChrome = await new AxePuppeteer(page).analyze();
-      // console.log(results);
-      var dt = new Date();
-      var utcDate = dt.toUTCString();
-      var filename = 'SignInPage508' + utcDate.replace(":", "").replace(/ /g, "").replace(",", "").substring(0, 16);
-      console.log(filename)
-      AxeReports.processResults(resultsChrome, 'csv', '508Results/' + filename, true);
+      if(check508=='true')
+       {
+        check.CHECK_508('SignInPage508');
+      } 
+
       break;
 
     case "desktop-firefox":
