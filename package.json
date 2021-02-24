@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env CAS_ENV=integration ECO_NAME=currentuser MOBILE_DEVICE=IPHONE_12_PRO_MAX_CURRENT_VERSION_USERAGENT TAB_DEVICE=IPAD_PRO_PREVIOUS_VERSION_USERAGENT cucumber-js --parallel 0 --retry 0 -f json:cucumber-report.json",
+    "test": "cross-env CAS_ENV=integration ECO_NAME=currentuser MOBILE_DEVICE=IPHONE_12_PRO_MAX_CURRENT_VERSION_USERAGENT TAB_DEVICE=IPAD_PRO_PREVIOUS_VERSION_USERAGENT cucumber-js --parallel 5 --retry 0 -f json:cucumber-report.json",
     "report": "node report.js",
     "rest-assured": "rest-assured"
   },
