@@ -289,6 +289,10 @@ Then('i execute query without return', async function (text) {
 Then('Select tile {string}', async function (string) {
     console.log('Tile Name is ' + string)
     await createaccount.selectTile(page, string)
+    if(CHECK_508=='true')
+      {
+        await check.generateResults(page, string.replace(/ /g, ""));
+      }
  });
 
  Then('Select quadrant {string}', async function (string) {

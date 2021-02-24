@@ -5,7 +5,7 @@ async function generateResults(page, pageName)
 {
     console.log('508 results for '+pageName)
     const resultsChrome = await new AxePuppeteer(page).analyze();
-       console.log(resultsChrome);
+      // console.log(resultsChrome);
       var dt = new Date();
       var utcDate = dt.toUTCString();
       var filename = pageName + '508'+ utcDate.replace(":", "").replace(/ /g, "").replace(",", "").substring(0, 16);

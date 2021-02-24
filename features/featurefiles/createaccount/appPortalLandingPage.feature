@@ -18,12 +18,12 @@ Feature: Validate Landing Page of the CAS Applicant Portal
        And Open the 'aacomas' Applicant page '<device>'
         Given Create Account button is clicked
         When User Account is created
-       # Then Select an program in Add Program page and continue to DashBoard
-        #Then Validate DashBoard Page and print CASID
-        #Then Select quadrant "1"
-        #Then Select tile "Biographic Information"
-        #Then Complete "Biographic Information" tile
-        #Then The browser is closed
+        Then Select an program in Add Program page and continue to DashBoard
+        Then Validate DashBoard Page and print CASID
+        Then Select quadrant "1"
+        Then Select tile "Biographic Information"
+        Then Complete "Biographic Information" tile
+        Then The browser is closed
           Examples:
               |device          |
               |desktop-chrome  |

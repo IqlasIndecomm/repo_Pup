@@ -125,7 +125,7 @@ When('Open the {string} Applicant page {string}', async function (cas, device) {
       console.log('508 results')
       if(check508=='true')
        {
-        check.CHECK_508('SignInPage508');
+        await check.generateResults(page, 'SignInPage');
       } 
 
       break;
