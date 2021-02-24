@@ -55,6 +55,8 @@ var testtabdevice;
   
 var url = require('../../../configuration/urls')
 
+var api = require('../../../api/apitest')
+
 var utils = require('../../../utilities/commonUtils');
 
 var db = require('../../../configuration/database');
@@ -218,6 +220,15 @@ Given("UserName and Password is provided", async function () {
     await landingpage.typeusernamepassword(page, 'aashnasahni', 'Test@123');
 });
 
+Then('add custom tile', async function () {
+    console.log('in')
+    var formid = 6621;
+    var apiurl = "/appbuilder/rest/applicationFormSubSections/";
+    var payload = createaccountdata.CREATE_TILE_PAYLOAD;
+    var code = 201;
+    api.addDataAPIPostCall(payload, formid, apiurl, code);
+});
+
 Then('i print text', async function (table) {
     var s = table.rows();
     console.log("text: ");
@@ -274,3 +285,8 @@ Then('Select tile {string}', async function (string) {
  Then('Select quadrant {string}', async function (string) {
     await createaccount.selectQuadrant(page, string)
  });
+
+ 
+
+
+ 
