@@ -12,6 +12,9 @@ var CreateAccountLastNameTextField = '.cas-new-user-question-block #newUserAccou
 
 class createaccount {
     async clickcreateaccountbutton(page) {
+        console.log('clicking');
+        utils.waitfor(10000);
+        console.log('waiting');
         await page.waitForSelector(CreateAccountButtonInLandingPage);
         await page.click(CreateAccountButtonInLandingPage)
     }
@@ -46,6 +49,7 @@ class createaccount {
     async clicktermscheckbox(page) {
         await page.click('#cas-newUserAccount-termsAndConditions-agreement > div.cas-checkbox-container.ng-scope > div')
     }
+
     async clickcreateaccountbutton1(page) {
         await page.click('#cas-content-wrapper > div > form > div > div.cas-new-user-submit-button-container > button')
     }
@@ -61,6 +65,37 @@ class createaccount {
         await elements[0].click()
         //await page.waitForSelector('#modal-success')
         //await page.click('#modal-success')
+    }
+
+    async clickGDPRQuestionNoRadioButton(page) {
+        const elements = await page.$x("//h2[contains(text(),'European Union Data Protection')]/parent::div/div/question-component/div/div/div/fieldset/div/div[2]/div/div[2]/div[1]")
+        await elements[0].click()
+    }
+
+    async selectTile(page, tile) {
+        const element = await page.$x("//a[text()='" + tile + "'][1]")
+        await element[0].click()
+    }
+
+    async selectQuadrant(page, quadrant) {
+        switch (quadrant) {
+            case "1": console.log("Click Personal Information")
+                const element1 = await page.$x("//*[contains(text(),'Personal')]")
+                await element1[0].click()
+                break
+            case "2": console.log("Click Academic History")
+                const element2 = await page.$x("//*[contains(text(),'Academic')]")
+                await element2.click()
+                break
+            case "3": console.log("Click Supporting Information")
+                const element3 = await page.$x("//*[contains(text(),'Supporting')]")
+                await element3.click()
+                break
+            case "4": console.log("Click Personal Information")
+                const element4 = await page.$x("//*[contains(text(),'Materials')]")
+                await element4.click()
+                break
+        }
     }
 
 }

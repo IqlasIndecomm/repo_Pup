@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env CAS_ENV=integration ecoSystemName=nf-49522 cucumber-js --parallel 0 --retry 0 -f json:cucumber-report.json",
+    "test": "cross-env CAS_ENV=integration ECO_NAME=currentuser MOBILE_DEVICE=IPHONE_12_PRO_MAX_CURRENT_VERSION_USERAGENT TAB_DEVICE=IPAD_PRO_PREVIOUS_VERSION_USERAGENT cucumber-js --parallel 5 --retry 0 -f json:cucumber-report.json",
     "report": "node report.js",
     "rest-assured": "rest-assured"
   },
@@ -25,6 +25,7 @@
     "mssql": "^6.3.1",
     "mysql": "^2.18.1",
     "puppeteer": "^5.5.0",
+    "puppeteer-edge": "^0.12.4",
     "puppeteer-firefox": "^0.5.0",
     "request-promise": "^4.2.6",
     "rest-assured": "^0.1.0",

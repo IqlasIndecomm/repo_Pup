@@ -21,8 +21,14 @@ var MobileDetect = require('mobile-detect');
 const CAS_ENV = process.env.CAS_ENV || stage;
 var testenv;
 
-const ecoSystemName = process.env.ecoSystemName;
+const ECO_NAME = process.env.ECO_NAME;
 var testeco;
+
+const MOBILE_DEVICE = process.env.MOBILE_DEVICE;
+var testmobiledevice;
+
+const TAB_DEVICE = process.env.TAB_DEVICE;
+var testtabdevice;
 
 //var navigator;
 /* global.navigator = {
@@ -46,7 +52,7 @@ var testeco;
 
   const createaccountdata = require('../../../testdata/datafiles/createaccountdata')
   //var createAccountData = new createaccountdata();
-
+  
 var url = require('../../../configuration/urls')
 
 var utils = require('../../../utilities/commonUtils');
@@ -100,6 +106,7 @@ Then('SignOut from App Portal', async function () {
 });
 
 Given('Create Account button is clicked', async function () {
+    utils.waitfor(10000)
     await createaccount.clickcreateaccountbutton(page);
     //await page.waitForSelector('#cas-content-wrapper > div > div.cas-login-container > div.cas-login-form-container > form > a.cas-login-create-account-link')
     //await page.click('#cas-content-wrapper > div > div.cas-login-container > div.cas-login-form-container > form > a.cas-login-create-account-link')
@@ -116,6 +123,13 @@ When('User Account is created', async function () {
     await createaccount.typepassword(page)
     await createaccount.typeconfirmpassword(page)
     await createaccount.clicktermscheckbox(page)
+    try{
+        await createaccount.clickGDPRQuestionNoRadioButton(page)
+    }
+    catch(error)
+    {
+        console.log('European Question is not displayed/Applicable');
+    }
     await createaccount.clickcreateaccountbutton1(page)
     utils.waitfor(5000)
     await createaccount.checksuccesmessage(page)
@@ -125,6 +139,15 @@ When('User Account is created', async function () {
 
 Then('Select an program in Add Program page and continue to DashBoard', async function () {
     utils.sleep(15000)
+    try{
+        await addprogram.selectProgramPlan(page, 'Winter, 2021')
+    }
+    catch(error)
+    {
+        console.log('Program Plan pop up not present')
+    }
+    console.log('clicking first program')
+    utils.sleep(3000)
     await addprogram.clickfirstprogram(page);
     utils.sleep(3000)
     await addprogram.clickcontinuebutton(page);
@@ -132,7 +155,7 @@ Then('Select an program in Add Program page and continue to DashBoard', async fu
     //var Message = utils.gettext(page, '#cas-content-wrapper > div > div.ng-scope > section > section > div.ng-scope.ng-isolate-scope > header > div.cas-program-selections-total-fees-container.ng-scope > dl > dd')
     const Message = await page.$eval('#cas-content-wrapper > div > div.ng-scope > section > section > div.ng-scope.ng-isolate-scope > header > div.cas-program-selections-total-fees-container.ng-scope > dl > dd', ele => ele.textContent);
     console.log("Fee is: " + Message.trim()); 
-    assert.isTrue(utils.ValidateMessage(Message.trim(), '$95.00'), "Text do not match");
+    assert.isTrue(utils.ValidateMessage(Message.trim(), createaccountdata.AACOMAS_PROGRAM_FEE), "Text do not match");
 
     await addprogram.clicksummarypagecontinuebutton(page);
     //await page.click('#cas-content-wrapper > div > div.ng-scope > section > section > div.ng-scope.ng-isolate-scope > header > div.cas-program-selections-actions > button.cas-primary-button-large-next.ng-scope')
@@ -140,11 +163,11 @@ Then('Select an program in Add Program page and continue to DashBoard', async fu
 
 Then('Complete {string} tile', async function (string) {
     console.log('Current Tile Name is ' + string)
-    await dashboard.selectfirstquadrant(page)
+    //await dashboard.selectfirstquadrant(page)
     //await page.click('#expandpersonalInfo > div.cas-category-progress.ng-scope > div.cas-category-progress-bar.cas-progress-completion-indicator.cas-personalInfo')
     utils.sleep(20000)
-    if (string.trim() == 'Biographic Information') {
-        await biographictile.clickbiographytile(page);
+    /* if (string.trim() == 'Biographic Information') {
+        await biographictile.clickbiographytile(page); */
         //await page.click('#collapse-personalInfo > section > ul > li:nth-child(1)')
         utils.sleep(15000)
         await biographictile.clickmalesexradiobuttob(page);
@@ -164,10 +187,10 @@ Then('Complete {string} tile', async function (string) {
         await biographictile.clicksaveandcontinue(page)
         //await page.click('#cas-content-wrapper > section > div.cas-container.cas-section-content-container.ng-scope > div > div > div > form > div.cas-save-and-continue-button-container > button > span')
         utils.sleep(5000)
-    }
+   /*  }
 
     else if (string.trim() == 'Contact Information')
-        await page.click('#collapse-personalInfo > section > ul > li:nth-child(2)')
+        await page.click('#collapse-personalInfo > section > ul > li:nth-child(2)') */
 });
 
 Then('Count the results', async function () {
@@ -241,3 +264,13 @@ Then('i execute query without return', async function (text) {
     await db.executeQueryWithoutReturn(query);
 
 }); 
+
+
+Then('Select tile {string}', async function (string) {
+    console.log('Tile Name is ' + string)
+    await createaccount.selectTile(page, string)
+ });
+
+ Then('Select quadrant {string}', async function (string) {
+    await createaccount.selectQuadrant(page, string)
+ });
