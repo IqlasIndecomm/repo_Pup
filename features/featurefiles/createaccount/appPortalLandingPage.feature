@@ -20,7 +20,7 @@ Feature: Validate Landing Page of the CAS Applicant Portal
        
 
     Scenario Outline: Create Account
-       And Open the 'aacomas' Applicant page '<device>'
+       And Open the 'bucom' Applicant page '<device>'
         Given Create Account button is clicked
         When User Account is created
         Then Select an program in Add Program page and continue to DashBoard
