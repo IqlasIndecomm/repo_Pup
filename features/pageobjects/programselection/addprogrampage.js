@@ -16,6 +16,19 @@ class addprogrampage {
         await page.click('#cas-content-wrapper > div > div.ng-scope > section > section > div.ng-scope.ng-isolate-scope > header > div.cas-program-selections-actions > button.cas-primary-button-large-next.ng-scope')
 
     }
+
+    async selectcounty(page, text) {
+        await page.type('#personalInfo-biographicInfo-birthInfo-county-listBox', text)
+    }
+
+    async selectProgramPlan(page, text){
+        console.log('in meth')
+        await page.type('select#mandataory-alert-modal-plan-to-enroll-listBox', text)
+        
+       //const selectElem = await page.$('#mandataory-alert-modal-plan-to-enroll-listBox');
+       //await selectElem.type('Winter, 2021');
+        await page.click('#errorSavingModal > div > div > div.modal-footer > button');
+    }
 }
 
 
