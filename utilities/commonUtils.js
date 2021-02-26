@@ -34,7 +34,4 @@ async function gettext(page, locator) {
     return Message;
 }
 
-
-
-
 module.exports = { ValidateMessage, containsTextMessage, sleep, waitfor, gettext };
