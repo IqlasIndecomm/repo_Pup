@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ECO_NAME=currentuser CHECK_508=true MOBILE_DEVICE=IPHONE_12_PRO_MAX_CURRENT_VERSION_USERAGENT TAB_DEVICE=IPAD_PRO_PREVIOUS_VERSION_USERAGENT cucumber-js --parallel 0 --retry 0 -f json:cucumber-report.json",
+    "test": "",
     "report": "node report.js",
     "rest-assured": "rest-assured"
   },
